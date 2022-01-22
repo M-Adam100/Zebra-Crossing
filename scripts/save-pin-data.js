@@ -82,10 +82,9 @@ console.log("Running Script");
   }
 
   const parsePinData = (pinData, key) => {
-    const searchBoxInput = document.querySelector('[name="searchBoxInput"]').value;
+    const searchBoxInput = document.querySelector('[name="searchBoxInput"]')?.value || '';
 
     const { data } = pinData?.props?.initialReduxState?.resources?.PinResource[key];
-    console.log(data);
     const title =  data?.rich_metadata?.title || data?.title || ''
     const  description = data?.rich_metadata?.description || data?.description || '';
     const pinURL = data?.rich_metadata?.url || data?.domain || '';
@@ -123,7 +122,7 @@ console.log("Running Script");
     div.id = 'mainDiv';
     div.className = 'mainDiv';
     div.append(input, startButton);
-    const searchBoxInput = document.querySelector('[name="searchBoxInput"]');
+    const searchBoxInput = document.querySelector('[id="searchBoxContainer"]');
     insertAfter(searchBoxInput, div);
 
 
