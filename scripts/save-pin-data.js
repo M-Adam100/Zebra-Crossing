@@ -20,8 +20,9 @@ console.log("Running Script");
           pinData = JSON.parse(data);
         }
       }
-      if (pinData.props.initialReduxState?.resources?.PinResource) {
-        const key = Object.keys(pinData.props.initialReduxState?.resources?.PinResource) || [];
+      console.log(pinData);
+      if (pinData?.props?.initialReduxState?.resources?.PinResource) {
+        const key = Object.keys(pinData?.props?.initialReduxState?.resources?.PinResource) || [];
         if (key.length) {
           parsePinData(pinData, key[0]);
         }
@@ -61,6 +62,7 @@ console.log("Running Script");
 
   const exportPosts = (arr) => {
     const items = arr;
+    console.log(items);
     const replacer = (key, value) => value === null ? '' : value
     const header = Object.keys(items[0])
     const csv = [
@@ -84,7 +86,11 @@ console.log("Running Script");
 
     const { data } = pinData?.props?.initialReduxState?.resources?.PinResource[key];
     console.log(data);
-    const { title, description, } = data?.rich_metadata;
+    const title =  data?.rich_metadata?.title || data?.title || ''
+    const  description = data?.rich_metadata?.description || data?.description || '';
+    const pinURL = data?.rich_metadata?.url || data?.domain || '';
+    const filteredTitle = title.replaceAll('#', '');
+    const filteredPinURL = pinURL.replaceAll('#', '');
     const filteredDescription = description?.replaceAll('#', '');
     const imageUrl = data.images['orig'].url;
     const saves = data?.aggregated_pin_data?.aggregated_stats?.saves;
@@ -95,7 +101,7 @@ console.log("Running Script");
       videoURL = data.videos?.video_list[key[0]]?.url;
     }
 
-    ARR.push({ title, description: filteredDescription, saves, keyword: searchBoxInput, imageUrl, videoURL });
+    ARR.push({ title: filteredTitle, description: filteredDescription, saves, keyword: searchBoxInput, imageUrl, videoURL, pinURL: filteredPinURL });
 
   }
   const addExtensionNode = () => {
