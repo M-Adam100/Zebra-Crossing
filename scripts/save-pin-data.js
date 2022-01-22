@@ -74,7 +74,7 @@ console.log("Running Script");
     let link = document.querySelector(['[id="exportLink"]']) || document.createElement("a");
     link.id = 'exportLink';
     link.setAttribute("href", 'data:text/csv;charset=utf-8,' + encodeURI(csv));
-    link.setAttribute("download", `${document.title}.csv`);
+    link.setAttribute("download", `Pinterest.csv`);
     link.addEventListener('click', () => {
       console.log("Downloaded!");
     })
