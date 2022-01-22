@@ -1,0 +1,49 @@
+.start {
+    width: 120px;
+    height: 55px;
+    border: 3px solid white;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    background-color: rgb(45, 105, 92);
+}
+
+#stopwatch {
+    font-size: 23px;
+    align-self: center;
+}
+
+.mainDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.stepDiv {
+    width: 120px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+        /* align-content: center; */
+        align-items: center;
+        height: 55px;
+        border: 3px solid white;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    background-color: rgb(72, 72, 177);
+}
+
+.stepDiv span {
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+.stepDiv input {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+canvas {
+    margin: 2rem auto;
+}
