@@ -4,7 +4,9 @@ console.log("Running Script");
 
   const ARR = [];
   const coverArticles = async (pins) => {
+    alert("Started Scraping!");
     for (let i = 0; i < pins.length; i++) {
+      console.log("Parsing Pin: ", i);
       const item = pins[i];
       const href = item.querySelector('a').href;
       const productResponse = await fetch(`${href}`);
@@ -20,7 +22,6 @@ console.log("Running Script");
           pinData = JSON.parse(data);
         }
       }
-      console.log(pinData);
       if (pinData?.props?.initialReduxState?.resources?.PinResource) {
         const key = Object.keys(pinData?.props?.initialReduxState?.resources?.PinResource) || [];
         if (key.length) {
@@ -40,7 +41,6 @@ console.log("Running Script");
     const interval = setInterval(() => {
       let pins = [...document.querySelectorAll('div[data-grid-item]')];
       PINS = [...PINS, ...pins];
-      console.log(PINS.length);
       if (PINS.length < number) {
         window.scrollBy(
           0,
@@ -61,24 +61,28 @@ console.log("Running Script");
   }
 
   const exportPosts = (arr) => {
+    alert("Started Exporting");
+    const searchBoxInput = document.querySelector('[name="searchBoxInput"]')?.value || '';
     const items = arr;
-    console.log(items);
-    const replacer = (key, value) => value === null ? '' : value
-    const header = Object.keys(items[0])
-    const csv = [
-      header.join(','),
-      ...items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
-    ].join('\r\n')
-    console.log(csv);
-
-    let link = document.querySelector(['[id="exportLink"]']) || document.createElement("a");
-    link.id = 'exportLink';
-    link.setAttribute("href", 'data:text/csv;charset=utf-8,' + encodeURI(csv));
-    link.setAttribute("download", `Pinterest.csv`);
-    link.addEventListener('click', () => {
-      console.log("Downloaded!");
-    })
-    link.click();
+    if (items.length) {
+      const replacer = (key, value) => value === null ? '' : value
+      const header = Object.keys(items[0])
+      const csv = [
+        header.join(','),
+        ...items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+      ].join('\r\n')
+  
+      let link = document.querySelector(['[id="exportLink"]']) || document.createElement("a");
+      link.id = 'exportLink';
+      link.setAttribute("href", 'data:text/csv;charset=utf-8,' + encodeURI(csv));
+      link.setAttribute("download", `${searchBoxInput}.csv`);
+      link.addEventListener('click', () => {
+        console.log("Downloaded!");
+        alert("Exporting Done!");
+      })
+      link.click();
+    }
+   
   }
 
   const parsePinData = (pinData, key) => {
@@ -92,7 +96,8 @@ console.log("Running Script");
     const filteredPinURL = pinURL.replaceAll('#', '');
     const filteredDescription = description?.replaceAll('#', '');
     const imageUrl = data.images['orig'].url;
-    const saves = data?.aggregated_pin_data?.aggregated_stats?.saves;
+    const PinURL = pinData?.props?.context?.current_url || '';
+    const saves = data?.aggregated_pin_data?.aggregated_stats?.saves || 0;
     let videoURL = '';
 
     if (data?.videos?.video_list) {
@@ -100,7 +105,7 @@ console.log("Running Script");
       videoURL = data.videos?.video_list[key[0]]?.url;
     }
 
-    ARR.push({ title: filteredTitle, description: filteredDescription, saves, keyword: searchBoxInput, imageUrl, videoURL, pinURL: filteredPinURL });
+    ARR.push({ Title: filteredTitle, Description: filteredDescription, Saves: saves, Keywords: searchBoxInput, Thumbnail: imageUrl, 'Video URL': videoURL, Link: filteredPinURL, 'Pin URL': PinURL });
 
   }
   const addExtensionNode = () => {
