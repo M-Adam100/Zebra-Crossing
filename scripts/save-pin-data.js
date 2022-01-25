@@ -4,7 +4,6 @@ console.log("Running Script");
 
   const ARR = [];
   const coverArticles = async (pins) => {
-    alert("Started Scraping!");
     for (let i = 0; i < pins.length; i++) {
       console.log("Parsing Pin: ", i);
       const item = pins[i];
@@ -61,7 +60,6 @@ console.log("Running Script");
   }
 
   const exportPosts = (arr) => {
-    alert("Started Exporting");
     const searchBoxInput = document.querySelector('[name="searchBoxInput"]')?.value || '';
     const items = arr;
     if (items.length) {
@@ -78,7 +76,6 @@ console.log("Running Script");
       link.setAttribute("download", `${searchBoxInput}.csv`);
       link.addEventListener('click', () => {
         console.log("Downloaded!");
-        alert("Exporting Done!");
       })
       link.click();
     }
@@ -95,7 +92,7 @@ console.log("Running Script");
     const filteredTitle = title.replaceAll('#', '');
     const filteredPinURL = pinURL.replaceAll('#', '');
     const filteredDescription = description?.replaceAll('#', '');
-    const imageUrl = data.images['orig'].url;
+    const imageUrl = data?.images['orig'].url || '';
     const PinURL = pinData?.props?.context?.current_url || '';
     const saves = data?.aggregated_pin_data?.aggregated_stats?.saves || 0;
     let videoURL = '';
