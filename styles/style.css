@@ -6,16 +6,31 @@
     margin-left: auto;
 }
 
-
+.inputArea {
+	display: inline-block;
+	height: 40px;
+	padding-left: 12.5px;
+	padding-right: 12.5px;
+	padding-top: 7.5px;
+	padding-bottom: 7.5px;
+	width: 100%;
+	box-sizing : border-box;
+	border: 1px solid #cddce4;
+	font-size: 14px;
+	border-radius: 2px;
+}
 
 .startButton {
-    padding: 5px 20px 5px 20px;
-    margin-right: 10px;
-    align-self: center;
-    border-radius: 16px;
-    border: 1px solid;
-    color: white;
-    font-family: 'Rajdhani';
+    padding: 7.5px 8.5px;
+    font-size: 13px;
+	font-weight: bold;
+    text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-right: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.075);
+	border-radius: 0;
+	background: rgb(76, 90, 97);
+	color: rgb(255, 255, 255);
 }
 
 .img {

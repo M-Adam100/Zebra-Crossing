@@ -67,7 +67,7 @@ console.log("Running Script");
       const header = Object.keys(items[0])
       const csv = [
         header.join(','),
-        ...items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+        ...items.map(row => header?.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
       ].join('\r\n')
   
       let link = document.querySelector(['[id="exportLink"]']) || document.createElement("a");
@@ -118,8 +118,10 @@ console.log("Running Script");
     })
     startButton.value = 'Start';
     startButton.innerText = 'Start';
+    startButton.className = "startButton";
     input.placeholder = 'Number of Pins';
-    input.id = 'inputPins'
+    input.id = 'inputPins';
+    input.className = "inputArea";
     const div = document.createElement('div');
     div.id = 'mainDiv';
     div.className = 'mainDiv';

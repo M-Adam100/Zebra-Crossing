@@ -3,17 +3,20 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.action.onClicked.addListener(function(tab) {
+  if (tab.url.includes('pinterest')) {
     chrome.scripting.insertCSS(
-        {
-          target: {tabId: tab.id},
-          files: ["styles/style.css"]
-        },
-        () => { console.log('CSS Injected') });
-    chrome.scripting.executeScript(
-        {
-          target: {tabId: tab.id},
-          files: ['scripts/save-pin-data.js']
-        },
-        () => { console.log("Executed Script")});
+      {
+        target: {tabId: tab.id},
+        files: ["styles/style.css"]
+      },
+      () => { console.log('CSS Injected') });
+  chrome.scripting.executeScript(
+      {
+        target: {tabId: tab.id},
+        files: ['scripts/save-pin-data.js']
+      },
+      () => { console.log("Executed Script")});
+  }
+   
         
 });
